@@ -252,6 +252,8 @@ public class Main {
             }
 
         }
+
+        System.out.println("No solution found.");
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {

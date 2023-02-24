@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ef14a283-6ea7-4767-9385-d0e9871d0feb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maze/maze.txt" beforeDir="false" afterPath="$PROJECT_DIR$/maze/maze.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,13 +67,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677214215454</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Improved the return statement of readFile for dynamic array sizes.">
+      <created>1677214519427</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677214519427</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added maze.txt and added 2d array for the maze" />
     <MESSAGE value="Priority queue for frontier" />
     <MESSAGE value="Made Cell.java and exited the loop safely, finding the goal." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made Cell.java and exited the loop safely, finding the goal." />
+    <MESSAGE value="Improved the return statement of readFile for dynamic array sizes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved the return statement of readFile for dynamic array sizes." />
   </component>
 </project>
