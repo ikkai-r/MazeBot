@@ -97,6 +97,7 @@ public class Main {
         Cell currCell;
         Cell nextCell;
         String verdict = "No solution found";
+        char[][] displayMaze = arrMaze;
 
         //state should contain:
         //  position in grid
@@ -181,7 +182,7 @@ public class Main {
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
 
-                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -206,7 +207,7 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
-                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -231,7 +232,7 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
-                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -256,7 +257,7 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
-                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -264,7 +265,7 @@ public class Main {
 
             for (int i = 0; i < arrMaze.length; i++) {
                 for (int j = 0; j < arrMaze.length; j++) {
-                    System.out.print(arrMaze[i][j]);
+                    System.out.print(displayMaze[i][j]);
                 }
                 System.out.println();
             }
