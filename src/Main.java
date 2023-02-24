@@ -178,15 +178,18 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                             if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost+1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
+                            nextCell.setActualCost(cost+1);
+                            nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
@@ -214,15 +217,18 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                             if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost+1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
+                            nextCell.setActualCost(cost+1);
+                            nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
@@ -248,16 +254,19 @@ public class Main {
                     //else
 
                     if (!nextCell.getExplored()) {
+                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                             if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost+1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
+                            nextCell.setActualCost(cost+1);
+                            nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
@@ -284,16 +293,18 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                             if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost+1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
+                            nextCell.setActualCost(cost+1);
+                            nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
