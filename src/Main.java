@@ -4,16 +4,25 @@ import java.io.*;
 //isang file muna lahat kasi di nagana github sa comlabs
 
 public class Main {
-    public static void main(String[]args) {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         char[][] arrMaze = readFile();
+        Cell[][] cellVisited = new Cell[5][5];
 
-        for(int i = 0; i < arrMaze.length; i++) {
+
+        for (int i = 0; i < arrMaze.length; i++) {
             System.out.println(arrMaze[i]);
         }
 
-        searchForGoal(arrMaze);
+
+        for (int i = 0; i < cellVisited.length; i++) {
+            for (int j = 0; j < cellVisited.length; j++) {
+                cellVisited[i][j] = new Cell(i, j);
+            }
+        }
+
+        searchForGoal(arrMaze, cellVisited);
 
 
     }
@@ -26,8 +35,7 @@ public class Main {
 
         File file = new File("maze//maze.txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file)))
-        {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
 
@@ -54,7 +62,7 @@ public class Main {
         int[] pos = new int[2];
 
         for (int i = 0; i < arrMaze.length; i++) {
-            for(int j = 0; j < arrMaze.length; j++) {
+            for (int j = 0; j < arrMaze.length; j++) {
 
                 if (arrMaze[i][j] == id) {
                     pos[0] = i;
@@ -68,11 +76,12 @@ public class Main {
         return pos;
     }
 
-    public static void searchForGoal(char[][] arrMaze) {
+    public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
         int[] start;
         int[] goal;
-        int cost = 0;
-        int[] currPos = new int[2];
+        double cost = 0d;
+        Cell currCell;
+        Cell nextCell;
 
         //state should contain:
         //  position in grid
@@ -102,102 +111,138 @@ public class Main {
         System.out.println(start[0] + " " + start[1]);
         System.out.println(goal[0] + " " + goal[1]);
         System.out.println("======================");
+
         //make priority queue
-        PriorityQueue<Integer> frontierPQ = new PriorityQueue<>();
-        List<int[]> exploredCells = new ArrayList<>();
+        PriorityQueue<Cell> frontierPQ = new PriorityQueue<>(Comparator.comparing(Cell::getHeurActCost));
 
         //add start priority to the queue
-        frontierPQ.add(cost+heuristicFunc(start[1], goal[1], start[0], goal[0]));
+        cellVisited[start[0]][start[1]].setActualCost(0);
+        cellVisited[start[0]][start[1]].setHeurActCost(cellVisited[start[0]][start[1]].getActualCost() + heuristicFunc(start[1], goal[1], start[0], goal[0]));
+        frontierPQ.add(cellVisited[start[0]][start[1]]);
 
-        //set current pos to start
-        currPos = start;
+        currCell = cellVisited[start[0]][start[1]];
 
         //while queue is not empty
-        while(!frontierPQ.isEmpty()) {
+        while (!frontierPQ.isEmpty()) {
 
-            //set current pos to the element that will pop
+            //set current cell to th
+            currCell = frontierPQ.peek();
+            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
 
-            //remove s with smallest priority p
-            //from the frontier
+            // remove s with smallest priority p
+            // from the frontier
+            // and set explored to true
+            frontierPQ.poll().setExplored(true);
 
-            frontierPQ.poll();
+            //let c be the total cost up to s
+            //TODO: compute total cost of x from start cell
+            //How to compute total cost of x???
+            //feel ko need ko ng variable sa Cell.java ng previousCell para iaccess yung cost ng cell
+            //pero di q alam kung pano magwork around it atm
+            cost = currCell.getActualCost();
 
-            //add s to explored
-            exploredCells.add(currPos);
+            //if it is end then return solution
+            if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                System.out.println("Found solution!");
+                break;
+            }
 
             //for each action in Action(s)
             //check up, down, left, right, if valid
             //and if no wall
 
             //check up
-            if((currPos[0]-1 <= arrMaze.length-1) &&
-                    (arrMaze[currPos[0]-1][currPos[1]] != '#')) {
+            if ((currCell.getPosX() - 1 <= arrMaze.length - 1 && currCell.getPosX() - 1 >= 0) &&
+                    (arrMaze[currCell.getPosX() - 1][currCell.getPosY()] != '#')) {
+
+                //get s'
+                nextCell = cellVisited[currCell.getPosX() - 1][currCell.getPosY()];
 
                 // If s' already explored then continue
-                currPos[0]--;
+                //else
 
-                if(exploredCells.contains(currPos)) {
-                    continue;
-                } else {
+                if (!nextCell.getExplored()) {
                     //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    frontierPQ.add(cost+heuristicFunc(currPos[1], goal[1], currPos[0], goal[0]));
+                    frontierPQ.add(nextCell);
+                    nextCell.setPrev(currCell);
                 }
 
 
             }
 
             //check down
-            else if((currPos[0]+1 <= arrMaze.length-1) &&
-                    (arrMaze[currPos[0]+1][currPos[1]] != '#')) {
+            if ((currCell.getPosX() + 1 <= arrMaze.length - 1 && currCell.getPosX() + 1 >= 0) &&
+                    (arrMaze[currCell.getPosX() + 1][currCell.getPosY()] != '#')) {
+
+
+                //get s'
+                nextCell = cellVisited[currCell.getPosX() + 1][currCell.getPosY()];
 
                 // If s' already explored then continue
-                currPos[0]++;
+                //else
 
-                if(exploredCells.contains(currPos)) {
-                    continue;
-                } else {
+                if (!nextCell.getExplored()) {
                     //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    frontierPQ.add(cost+heuristicFunc(currPos[1], goal[1], currPos[0], goal[0]));
+                    nextCell.setActualCost(cost+1);
+
+                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
+
+                    frontierPQ.add(nextCell);
+                    nextCell.setPrev(currCell);
                 }
+
 
             }
 
-//check left
-            else if((currPos[1]-1 <= arrMaze.length-1) &&
-                    (arrMaze[currPos[0]][currPos[1]-1] != '#')) {
-                // If s' already explored then continue
-                currPos[1]--;
+            //check left
+            if ((currCell.getPosY() - 1 <= arrMaze.length - 1 && currCell.getPosY() - 1 >= 0) &&
+                    (arrMaze[currCell.getPosX()][currCell.getPosY() - 1] != '#')) {
 
-                if(exploredCells.contains(currPos)) {
-                    continue;
-                } else {
+
+                //get s'
+                nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() - 1];
+
+                // If s' already explored then continue
+                //else
+
+                if (!nextCell.getExplored()) {
                     //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    frontierPQ.add(cost+heuristicFunc(currPos[1], goal[1], currPos[0], goal[0]));
+                    nextCell.setActualCost(cost+1);
+
+                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
+
+                    frontierPQ.add(nextCell);
+                    nextCell.setPrev(currCell);
                 }
+
 
             }
 
             //check right
-            else if((currPos[1]+1 <= arrMaze.length-1) &&
-                    (arrMaze[currPos[0]][currPos[1]+1] != '#')) {
-                // If s' already explored then continue
-                currPos[1]++;
+            if ((currCell.getPosY() + 1 <= arrMaze.length - 1 && currCell.getPosY() + 1 >= 0) &&
+                    (arrMaze[currCell.getPosX()][currCell.getPosY() + 1] != '#')) {
 
-                if(exploredCells.contains(currPos)) {
-                    continue;
-                } else {
+
+                //get s'
+                nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() + 1];
+
+                // If s' already explored then continue
+                //else
+
+                if (!nextCell.getExplored()) {
                     //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    frontierPQ.add(cost+heuristicFunc(currPos[1], goal[1], currPos[0], goal[0]));
+                    nextCell.setActualCost(cost+1);
+
+                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
+
+                    frontierPQ.add(nextCell);
+                    nextCell.setPrev(currCell);
                 }
+
+
             }
 
-            System.out.println(frontierPQ);
         }
-
-
-
-
-
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {
