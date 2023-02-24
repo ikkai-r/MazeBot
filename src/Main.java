@@ -194,12 +194,6 @@ public class Main {
                             nextCell.setPrev(currCell);
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-
-
-                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
-                            verdict = "Found solution!";
-                            break;
-                        }
                     }
 
 
@@ -233,11 +227,6 @@ public class Main {
                             nextCell.setPrev(currCell);
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-
-                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
-                            verdict = "Found solution!";
-                            break;
-                        }
                     }
 
 
@@ -271,11 +260,6 @@ public class Main {
                             nextCell.setPrev(currCell);
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-
-                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
-                            verdict = "Found solution!";
-                            break;
-                        }
                     }
 
 
@@ -309,11 +293,6 @@ public class Main {
                             nextCell.setPrev(currCell);
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-
-                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
-                            verdict = "Found solution!";
-                            break;
-                        }
                     }
 
 

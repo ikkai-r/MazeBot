@@ -121,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677227047457</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed maze not stopping at goal.">
+      <created>1677229728980</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677229728980</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -135,6 +142,7 @@
     <MESSAGE value="Fixed arraycopy" />
     <MESSAGE value="Fixed infinite loop, still not stopping after reaching goal" />
     <MESSAGE value="Fixed infinity in heurActCost" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed infinity in heurActCost" />
+    <MESSAGE value="Fixed maze not stopping at goal." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed maze not stopping at goal." />
   </component>
 </project>
