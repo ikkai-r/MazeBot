@@ -22,8 +22,7 @@ public class Main {
             }
         }
 
-        String verdict = searchForGoal(arrMaze, cellVisited);
-        System.out.println(verdict);
+        searchForGoal(arrMaze, cellVisited);
 
 
     }
@@ -82,13 +81,13 @@ public class Main {
         return pos;
     }
 
-    public static String searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
+    public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
         int[] start;
         int[] goal;
         double cost = 0d;
         Cell currCell;
         Cell nextCell;
-        String verdict = "No solution found";
+        Cell goalCell = null;
         char[][] displayMaze = new char[arrMaze.length][arrMaze.length];
 
         for (int i = 0; i < arrMaze.length; i++) {
@@ -145,7 +144,6 @@ public class Main {
 
             //set current cell to th
             currCell = frontierPQ.peek();
-            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
 
             // remove s with smallest priority p
             // from the frontier
@@ -157,8 +155,8 @@ public class Main {
 
             //if it is end then return solution
             if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
-                verdict = "Found solution!";
-                return verdict;
+                goalCell = currCell;
+                break;
             } else if(arrMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
                 //for each action in Action(s)
                 //check up, down, left, right, if valid
@@ -313,9 +311,17 @@ public class Main {
 
         }
 
-        System.out.println(frontierPQ);
-
-        return verdict;
+        //printing the most optimal path
+        if (goalCell != null) {
+            System.out.println("Solution found!");
+            System.out.println(goalCell.getPosX() + " " + goalCell.getPosY());
+            while (goalCell.getPreviousCell() != null) {
+                System.out.println(goalCell.getPreviousCell().getPosX() + " " + goalCell.getPreviousCell().getPosY());
+                goalCell = cellVisited[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()];
+            }
+        } else {
+            System.out.println("Solution not found.");
+        }
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {

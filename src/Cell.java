@@ -57,4 +57,7 @@ public class Cell {
         this.actualCost = actualCost;
     }
 
+    public Cell getPreviousCell() {
+        return previousCell;
+    }
 }
