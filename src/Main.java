@@ -145,11 +145,11 @@ public class Main {
 
             //set current cell to th
             currCell = frontierPQ.peek();
-//            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
+            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
 
             // remove s with smallest priority p
             // from the frontier
-            // and set explored to true
+            //ands et to true
             frontierPQ.poll().setExplored(true);
 
             //let c be the total cost up to s
@@ -158,112 +158,159 @@ public class Main {
             //if it is end then return solution
             if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
                 verdict = "Found solution!";
-                break;
-            }
+                return verdict;
+            } else if(arrMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
+                //for each action in Action(s)
+                //check up, down, left, right, if valid
+                //and if no wall
 
-            //for each action in Action(s)
-            //check up, down, left, right, if valid
-            //and if no wall
+                //check up
+                if ((currCell.getPosX() - 1 <= arrMaze.length - 1 && currCell.getPosX() - 1 >= 0) &&
+                        (arrMaze[currCell.getPosX() - 1][currCell.getPosY()] != '#')) {
 
-            //check up
-            if ((currCell.getPosX() - 1 <= arrMaze.length - 1 && currCell.getPosX() - 1 >= 0) &&
-                    (arrMaze[currCell.getPosX() - 1][currCell.getPosY()] != '#')) {
+                    //get s'
+                    nextCell = cellVisited[currCell.getPosX() - 1][currCell.getPosY()];
 
-                //get s'
-                nextCell = cellVisited[currCell.getPosX() - 1][currCell.getPosY()];
+                    // If s' already explored then continue
+                    //else
 
-                // If s' already explored then continue
-                //else
 
-                if (!nextCell.getExplored()) {
-                    //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    nextCell.setActualCost(cost+1);
 
-                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
+                    if (!nextCell.getExplored()) {
+                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        if (frontierPQ.contains(nextCell)) {
+                            //check if next cell has a lower heuristic cost/cost now than the prev
+                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
-                    frontierPQ.add(nextCell);
-                    nextCell.setPrev(currCell);
+                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost+1);
+                                nextCell.setHeurActCost(heurActCost);
+                            }
+                        } else {
+                            frontierPQ.add(nextCell);
+                            nextCell.setPrev(currCell);
+                        }
+                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
 
-                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+
+                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                            verdict = "Found solution!";
+                            break;
+                        }
+                    }
+
+
                 }
 
+                //check down
+                if ((currCell.getPosX() + 1 <= arrMaze.length - 1 && currCell.getPosX() + 1 >= 0) &&
+                        (arrMaze[currCell.getPosX() + 1][currCell.getPosY()] != '#')) {
 
-            }
+                    //get s'
+                    nextCell = cellVisited[currCell.getPosX() + 1][currCell.getPosY()];
 
-            //check down
-            if ((currCell.getPosX() + 1 <= arrMaze.length - 1 && currCell.getPosX() + 1 >= 0) &&
-                    (arrMaze[currCell.getPosX() + 1][currCell.getPosY()] != '#')) {
+                    // If s' already explored then continue
+                    //else
+
+                    if (!nextCell.getExplored()) {
+                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        if (frontierPQ.contains(nextCell)) {
+                            //check if next cell has a lower heuristic cost/cost now than the prev
+                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost+1);
+                                nextCell.setHeurActCost(heurActCost);
+                            }
+                        } else {
+                            frontierPQ.add(nextCell);
+                            nextCell.setPrev(currCell);
+                        }
+                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+
+                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                            verdict = "Found solution!";
+                            break;
+                        }
+                    }
 
 
-                //get s'
-                nextCell = cellVisited[currCell.getPosX() + 1][currCell.getPosY()];
-
-                // If s' already explored then continue
-                //else
-
-                if (!nextCell.getExplored()) {
-                    //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    nextCell.setActualCost(cost+1);
-
-                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
-
-                    frontierPQ.add(nextCell);
-                    nextCell.setPrev(currCell);
-                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
+                //check left
+                if ((currCell.getPosY() - 1 <= arrMaze.length - 1 && currCell.getPosY() - 1 >= 0) &&
+                        (arrMaze[currCell.getPosX()][currCell.getPosY() - 1] != '#')) {
 
-            }
+                    //get s'
+                    nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() - 1];
 
-            //check left
-            if ((currCell.getPosY() - 1 <= arrMaze.length - 1 && currCell.getPosY() - 1 >= 0) &&
-                    (arrMaze[currCell.getPosX()][currCell.getPosY() - 1] != '#')) {
+                    // If s' already explored then continue
+                    //else
+
+                    if (!nextCell.getExplored()) {
+                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        if (frontierPQ.contains(nextCell)) {
+                            //check if next cell has a lower heuristic cost/cost now than the prev
+                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost+1);
+                                nextCell.setHeurActCost(heurActCost);
+                            }
+                        } else {
+                            frontierPQ.add(nextCell);
+                            nextCell.setPrev(currCell);
+                        }
+                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+
+                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                            verdict = "Found solution!";
+                            break;
+                        }
+                    }
 
 
-                //get s'
-                nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() - 1];
-
-                // If s' already explored then continue
-                //else
-
-                if (!nextCell.getExplored()) {
-                    //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    nextCell.setActualCost(cost+1);
-
-                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
-
-                    frontierPQ.add(nextCell);
-                    nextCell.setPrev(currCell);
-                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
+                //check right
+                if ((currCell.getPosY() + 1 <= arrMaze.length - 1 && currCell.getPosY() + 1 >= 0) &&
+                        (arrMaze[currCell.getPosX()][currCell.getPosY() + 1] != '#')) {
 
-            }
+                    //get s'
+                    nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() + 1];
 
-            //check right
-            if ((currCell.getPosY() + 1 <= arrMaze.length - 1 && currCell.getPosY() + 1 >= 0) &&
-                    (arrMaze[currCell.getPosX()][currCell.getPosY() + 1] != '#')) {
+                    // If s' already explored then continue
+                    //else
+
+                    if (!nextCell.getExplored()) {
+                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
+
+                        if (frontierPQ.contains(nextCell)) {
+                            //check if next cell has a lower heuristic cost/cost now than the prev
+                            double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost+1);
+                                nextCell.setHeurActCost(heurActCost);
+                            }
+                        } else {
+                            frontierPQ.add(nextCell);
+                            nextCell.setPrev(currCell);
+                        }
+                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+
+                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                            verdict = "Found solution!";
+                            break;
+                        }
+                    }
 
 
-                //get s'
-                nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() + 1];
-
-                // If s' already explored then continue
-                //else
-
-                if (!nextCell.getExplored()) {
-                    //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                    nextCell.setActualCost(cost+1);
-
-                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
-
-                    frontierPQ.add(nextCell);
-                    nextCell.setPrev(currCell);
-                    displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
-
             }
+
+
 
             for (int i = 0; i < arrMaze.length; i++) {
                 for (int j = 0; j < arrMaze.length; j++) {
@@ -274,8 +321,9 @@ public class Main {
 
             System.out.println("======");
 
-
         }
+
+        System.out.println(frontierPQ);
 
         return verdict;
     }

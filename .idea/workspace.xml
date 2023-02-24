@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ef14a283-6ea7-4767-9385-d0e9871d0feb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maze/maze.txt" beforeDir="false" afterPath="$PROJECT_DIR$/maze/maze.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677219064001</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed arraycopy">
+      <created>1677219530875</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677219530875</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -111,6 +119,7 @@
     <MESSAGE value="Printed &quot;no solution found&quot; if there is no way to get to the goal" />
     <MESSAGE value="Reworked checking up validity" />
     <MESSAGE value="Copied arrMaze to displayMaze" />
-    <option name="LAST_COMMIT_MESSAGE" value="Copied arrMaze to displayMaze" />
+    <MESSAGE value="Fixed arraycopy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed arraycopy" />
   </component>
 </project>
