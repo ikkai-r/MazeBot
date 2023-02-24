@@ -16,7 +16,11 @@ public class Main {
         Cell[][] cellVisited = new Cell[size][size];
 
         for (int i = 0; i < arrMaze.length; i++) {
-            System.out.println(arrMaze[i]);
+            for (int j = 0; j < arrMaze.length; j++) {
+                if(arrMaze[i][j] == '.') {
+                    arrMaze[i][j] = ' ';
+                }
+            }
         }
 
 
@@ -26,7 +30,8 @@ public class Main {
             }
         }
 
-        searchForGoal(arrMaze, cellVisited);
+        String verdict = searchForGoal(arrMaze, cellVisited);
+        System.out.println(verdict);
 
 
     }
@@ -85,12 +90,13 @@ public class Main {
         return pos;
     }
 
-    public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
+    public static String searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
         int[] start;
         int[] goal;
         double cost = 0d;
         Cell currCell;
         Cell nextCell;
+        String verdict = "No solution found";
 
         //state should contain:
         //  position in grid
@@ -136,7 +142,7 @@ public class Main {
 
             //set current cell to th
             currCell = frontierPQ.peek();
-            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
+//            System.out.println(currCell.getPosX() + " " + currCell.getPosY());
 
             // remove s with smallest priority p
             // from the frontier
@@ -144,15 +150,11 @@ public class Main {
             frontierPQ.poll().setExplored(true);
 
             //let c be the total cost up to s
-            //TODO: compute total cost of x from start cell
-            //How to compute total cost of x???
-            //feel ko need ko ng variable sa Cell.java ng previousCell para iaccess yung cost ng cell
-            //pero di q alam kung pano magwork around it atm
             cost = currCell.getActualCost();
 
             //if it is end then return solution
             if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
-                System.out.println("Found solution!");
+                verdict = "Found solution!";
                 break;
             }
 
@@ -172,8 +174,14 @@ public class Main {
 
                 if (!nextCell.getExplored()) {
                     //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                    nextCell.setActualCost(cost+1);
+
+                    nextCell.setHeurActCost(cost + nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]));
+
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
+
+                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -198,6 +206,7 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
+                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -222,6 +231,7 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
+                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
@@ -246,14 +256,25 @@ public class Main {
 
                     frontierPQ.add(nextCell);
                     nextCell.setPrev(currCell);
+                    arrMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
                 }
 
 
             }
 
+            for (int i = 0; i < arrMaze.length; i++) {
+                for (int j = 0; j < arrMaze.length; j++) {
+                    System.out.print(arrMaze[i][j]);
+                }
+                System.out.println();
+            }
+
+            System.out.println("======");
+
+
         }
 
-        System.out.println("No solution found.");
+        return verdict;
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {
