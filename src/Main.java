@@ -196,7 +196,7 @@ public class Main {
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
 
 
-                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
                             verdict = "Found solution!";
                             break;
                         }
@@ -234,7 +234,7 @@ public class Main {
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
 
-                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
                             verdict = "Found solution!";
                             break;
                         }
@@ -272,7 +272,7 @@ public class Main {
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
 
-                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
                             verdict = "Found solution!";
                             break;
                         }
@@ -310,7 +310,7 @@ public class Main {
                         }
                         displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
 
-                        if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
+                        if (arrMaze[nextCell.getPosX()][nextCell.getPosY()] == 'G') {
                             verdict = "Found solution!";
                             break;
                         }
