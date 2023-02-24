@@ -15,14 +15,6 @@ public class Main {
 
         Cell[][] cellVisited = new Cell[size][size];
 
-        for (int i = 0; i < arrMaze.length; i++) {
-            for (int j = 0; j < arrMaze.length; j++) {
-                if(arrMaze[i][j] == '.') {
-                    arrMaze[i][j] = ' ';
-                }
-            }
-        }
-
 
         for (int i = 0; i < cellVisited.length; i++) {
             for (int j = 0; j < cellVisited.length; j++) {
@@ -97,7 +89,17 @@ public class Main {
         Cell currCell;
         Cell nextCell;
         String verdict = "No solution found";
-        char[][] displayMaze = arrMaze;
+        char[][] displayMaze = new char[arrMaze.length][arrMaze.length];
+
+        for (int i = 0; i < arrMaze.length; i++) {
+            for (int j = 0; j < arrMaze.length; j++) {
+                if(arrMaze[i][j] == '.') {
+                    displayMaze[i][j] = ' ';
+                } else {
+                    displayMaze[i][j] = arrMaze[i][j];
+                }
+            }
+        }
 
         //state should contain:
         //  position in grid
