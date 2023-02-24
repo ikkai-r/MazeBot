@@ -6,10 +6,14 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
+        List<Object> fileOut = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        char[][] arrMaze = readFile();
-        Cell[][] cellVisited = new Cell[5][5];
+        fileOut = readFile();
 
+        int size = (int) fileOut.get(0);
+        char[][] arrMaze = (char[][]) fileOut.get(1);
+
+        Cell[][] cellVisited = new Cell[size][size];
 
         for (int i = 0; i < arrMaze.length; i++) {
             System.out.println(arrMaze[i]);
@@ -27,10 +31,12 @@ public class Main {
 
     }
 
-    public static char[][] readFile() {
+    public static List<Object> readFile() {
+
+        List<Object> objectList = new ArrayList<>();
 
         char[][] arrMaze = null;
-        int size;
+        int size = -1;
         int ctr = -1;
 
         File file = new File("maze//maze.txt");
@@ -55,7 +61,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        return arrMaze;
+        objectList.add(size);
+        objectList.add(arrMaze);
+
+        return objectList;
     }
 
     public static int[] findStartOrGoal(char id, char[][] arrMaze) {
