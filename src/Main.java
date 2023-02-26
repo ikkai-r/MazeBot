@@ -84,6 +84,7 @@ public class Main {
     public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
         int[] start;
         int[] goal;
+        int numOfExploredStates = 0;
         double cost = 0d;
         Cell currCell;
         Cell nextCell = null;
@@ -145,8 +146,14 @@ public class Main {
 
             // remove s with smallest priority p
             // from the frontier
-            //ands et to true
+            // and set to true
             frontierPQ.poll().setExplored(true);
+            numOfExploredStates++;
+
+
+            if(displayMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
+                displayMaze[currCell.getPosX()][currCell.getPosY()] = '.';
+            }
 
             //let c be the total cost up to s
             cost = currCell.getActualCost();
@@ -190,9 +197,7 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
-                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-                        }
+
                     }
 
 
@@ -227,9 +232,7 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
-                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-                        }
+
                     }
 
 
@@ -264,9 +267,6 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
-                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-                        }
                     }
 
 
@@ -299,9 +299,7 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
-                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
-                        }
+
                     }
 
 
@@ -339,6 +337,8 @@ public class Main {
         } else {
             System.out.println("Solution not found.");
         }
+
+        System.out.println("Number of explored states: " + numOfExploredStates);
 
         System.out.println("Legends: ");
         System.out.println(". - visited locations");

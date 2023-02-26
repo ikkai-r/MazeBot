@@ -164,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677392323503</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Added legends">
+      <created>1677393261473</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1677393261473</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -184,6 +191,7 @@
     <MESSAGE value="Added printing the most optimal path." />
     <MESSAGE value="Fixed infinity in actual cost" />
     <MESSAGE value="Fixed optimal path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed optimal path" />
+    <MESSAGE value="Added legends" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added legends" />
   </component>
 </project>
