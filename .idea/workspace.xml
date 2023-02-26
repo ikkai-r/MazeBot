@@ -157,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677392073398</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fixed optimal path">
+      <created>1677392323503</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1677392323503</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -176,6 +183,7 @@
     <MESSAGE value="Added printing the most optimal path. Will work on console animation tomorrow." />
     <MESSAGE value="Added printing the most optimal path." />
     <MESSAGE value="Fixed infinity in actual cost" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed infinity in actual cost" />
+    <MESSAGE value="Fixed optimal path" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed optimal path" />
   </component>
 </project>

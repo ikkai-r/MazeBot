@@ -339,6 +339,11 @@ public class Main {
         } else {
             System.out.println("Solution not found.");
         }
+
+        System.out.println("Legends: ");
+        System.out.println(". - visited locations");
+        System.out.println("x - final path");
+
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {
