@@ -173,10 +173,11 @@ public class Main {
                     //else
 
 
-
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                        System.out.println(heurActCost);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
@@ -211,7 +212,9 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                        System.out.println(heurActCost);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
@@ -245,7 +248,9 @@ public class Main {
                     //else
 
                     if (!nextCell.getExplored()) {
-                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+
+                        System.out.println(heurActCost);
 
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         if (frontierPQ.contains(nextCell)) {
@@ -281,7 +286,7 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+nextCell.getActualCost()+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
