@@ -150,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677390293171</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixed infinity in actual cost">
+      <created>1677392073398</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677392073398</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -168,6 +175,7 @@
     <MESSAGE value="Fixed searching for maze's optimal goal" />
     <MESSAGE value="Added printing the most optimal path. Will work on console animation tomorrow." />
     <MESSAGE value="Added printing the most optimal path." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added printing the most optimal path." />
+    <MESSAGE value="Fixed infinity in actual cost" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed infinity in actual cost" />
   </component>
 </project>

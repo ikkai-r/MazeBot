@@ -137,8 +137,6 @@ public class Main {
         cellVisited[start[0]][start[1]].setHeurActCost(cellVisited[start[0]][start[1]].getActualCost() + heuristicFunc(start[1], goal[1], start[0], goal[0]));
         frontierPQ.add(cellVisited[start[0]][start[1]]);
 
-        currCell = cellVisited[start[0]][start[1]];
-
         //while queue is not empty
         while (!frontierPQ.isEmpty()) {
 
