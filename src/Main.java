@@ -86,7 +86,7 @@ public class Main {
         int[] goal;
         double cost = 0d;
         Cell currCell;
-        Cell nextCell;
+        Cell nextCell = null;
         Cell goalCell = null;
         char[][] displayMaze = new char[arrMaze.length][arrMaze.length];
 
@@ -191,7 +191,9 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
+                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        }
                     }
 
 
@@ -224,7 +226,9 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
+                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        }
                     }
 
 
@@ -257,7 +261,9 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
+                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        }
                     }
 
 
@@ -290,15 +296,15 @@ public class Main {
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
                         }
-                        displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        if(displayMaze[nextCell.getPosX()][nextCell.getPosY()] != 'G') {
+                            displayMaze[nextCell.getPosX()][nextCell.getPosY()] = '.';
+                        }
                     }
 
 
                 }
 
             }
-
-
 
             for (int i = 0; i < arrMaze.length; i++) {
                 for (int j = 0; j < arrMaze.length; j++) {
@@ -311,13 +317,21 @@ public class Main {
 
         }
 
-        //printing the most optimal path
+        //printing the most optimal path in x
         if (goalCell != null) {
             System.out.println("Solution found!");
             System.out.println(goalCell.getPosX() + " " + goalCell.getPosY());
+
             while (goalCell.getPreviousCell() != null) {
-                System.out.println(goalCell.getPreviousCell().getPosX() + " " + goalCell.getPreviousCell().getPosY());
+                displayMaze[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()] = 'x';
                 goalCell = cellVisited[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()];
+            }
+
+            for (int i = 0; i < arrMaze.length; i++) {
+                for (int j = 0; j < arrMaze.length; j++) {
+                    System.out.print(displayMaze[i][j]);
+                }
+                System.out.println();
             }
         } else {
             System.out.println("Solution not found.");

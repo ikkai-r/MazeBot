@@ -4,7 +4,6 @@
     <list default="true" id="ef14a283-6ea7-4767-9385-d0e9871d0feb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maze/maze.txt" beforeDir="false" afterPath="$PROJECT_DIR$/maze/maze.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,14 +30,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/NEIL/IdeaProjects/MazeBot/maze"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/NEIL/IdeaProjects/MazeBot/maze&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\NEIL\IdeaProjects\MazeBot\maze" />
@@ -137,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677230210848</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added printing the most optimal path. Will work on console animation tomorrow.">
+      <created>1677237791227</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1677237791227</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -153,6 +159,7 @@
     <MESSAGE value="Fixed infinity in heurActCost" />
     <MESSAGE value="Fixed maze not stopping at goal." />
     <MESSAGE value="Fixed searching for maze's optimal goal" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed searching for maze's optimal goal" />
+    <MESSAGE value="Added printing the most optimal path. Will work on console animation tomorrow." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added printing the most optimal path. Will work on console animation tomorrow." />
   </component>
 </project>
