@@ -131,7 +131,7 @@ public class Main {
         System.out.println("======================");
 
         //make priority queue
-        PriorityQueue<Cell> frontierPQ = new PriorityQueue<>(Comparator.comparing(Cell::getHeurActCost));
+        PriorityQueue<Cell> frontierPQ = new PriorityQueue<>(Comparator.comparing(Cell::getHeurActCost).thenComparing(Cell::getActualCost));
 
         //add start priority to the queue
         cellVisited[start[0]][start[1]].setActualCost(0);

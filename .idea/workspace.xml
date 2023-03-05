@@ -171,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677393261473</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added  number of explored states and fixed visited locations .">
+      <created>1677393545159</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677393545159</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,6 +199,7 @@
     <MESSAGE value="Fixed infinity in actual cost" />
     <MESSAGE value="Fixed optimal path" />
     <MESSAGE value="Added legends" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added legends" />
+    <MESSAGE value="Added  number of explored states and fixed visited locations ." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added  number of explored states and fixed visited locations ." />
   </component>
 </project>
