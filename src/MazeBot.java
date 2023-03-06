@@ -324,7 +324,7 @@ public class MazeBot {
         int size = -1;
         int ctr = -1;
 
-        File file = new File("src//maze.txt");
+        File file = new File("maze//maze.txt");
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

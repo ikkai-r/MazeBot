@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef14a283-6ea7-4767-9385-d0e9871d0feb" name="Changes" comment="Added  number of explored states and fixed visited locations .">
-      <change afterPath="$PROJECT_DIR$/src/MazeBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ef14a283-6ea7-4767-9385-d0e9871d0feb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maze/maze.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MazeBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MazeBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678085028879</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Final version with updated documentation and updated prompt action">
+      <created>1678105073841</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1678105073841</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +244,7 @@
     <MESSAGE value="Fixed optimal path" />
     <MESSAGE value="Added legends" />
     <MESSAGE value="Added  number of explored states and fixed visited locations ." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added  number of explored states and fixed visited locations ." />
+    <MESSAGE value="Final version with updated documentation and updated prompt action" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final version with updated documentation and updated prompt action" />
   </component>
 </project>
