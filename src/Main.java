@@ -8,7 +8,6 @@ public class Main {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_WHITE_BG = "\u001B[47,";
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -259,8 +258,6 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
-
-                        System.out.println(heurActCost);
 
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         if (frontierPQ.contains(nextCell)) {
