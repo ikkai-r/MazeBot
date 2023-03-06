@@ -289,10 +289,10 @@ public class MazeBot {
         System.out.println("Number of explored states: " + numOfExploredStates);
 
         System.out.println("Legends: ");
-        System.out.println(Main.ANSI_RED + "o" + Main.ANSI_RESET + " - Bot");
-        System.out.println(Main.ANSI_YELLOW + "." + Main.ANSI_RESET + " - Visited Locations");
-        System.out.println(Main.ANSI_GREEN + "x" + Main.ANSI_RESET + " - Final Path");
-        System.out.println(Main.ANSI_GREEN + "E" + Main.ANSI_RESET + " - End");
+        System.out.println("o - Bot");
+        System.out.println(". - Visited Locations");
+        System.out.println("x - Final Path");
+        System.out.println("E - End");
 
     }
 
@@ -483,21 +483,21 @@ public class MazeBot {
 
                     if (row == cell.getPosX() && col == cell.getPosY()){
 
-                        maze.append(" ").append(Main.ANSI_RED).append("o").append(Main.ANSI_RESET).append(" ");
+                        maze.append(" ").append("o").append(" ");
                     }
                     else if (row == start[0] && col == start[1]){
 
-                        maze.append(" ").append(Main.ANSI_GREEN).append("S").append(Main.ANSI_RESET).append(" ");
+                        maze.append(" ").append("S").append(" ");
                     }
                     else if (row == goal[0] && col == goal[1]){
 
-                        maze.append(" ").append(Main.ANSI_GREEN).append("E").append(Main.ANSI_RESET).append(" ");
+                        maze.append(" ").append("E").append(" ");
                     } else if (arrMaze[row][col] == 'x'){
 
-                        maze.append(" ").append(Main.ANSI_GREEN).append(arrMaze[row][col]).append(Main.ANSI_RESET).append(" ");
+                        maze.append(" ").append(arrMaze[row][col]).append(" ");
                     } else {
 
-                        maze.append(" ").append(Main.ANSI_YELLOW).append(arrMaze[row][col]).append(Main.ANSI_RESET).append(" ");
+                        maze.append(" ").append(arrMaze[row][col]).append(" ");
                     }
 
 
