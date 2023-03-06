@@ -3,25 +3,32 @@ import java.io.*;
 
 //isang file muna lahat kasi di nagana github sa comlabs
 
+/*
+    This program finds the optimal path for a maze using A* Search, if the path to the goal exists.
+ */
 public class Main {
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_WHITE_BG = "\u001B[47,";
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
+        // scanning from input
         List<Object> fileOut = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         fileOut = readFile();
 
+        // from the input, take the size and the layout of the maze
         int size = (int) fileOut.get(0);
         char[][] arrMaze = (char[][]) fileOut.get(1);
 
         Cell[][] cellVisited = new Cell[size][size];
 
 
+        // for each tile, we create a cell so we can keep track of the tile's status
         for (int i = 0; i < cellVisited.length; i++) {
             for (int j = 0; j < cellVisited.length; j++) {
                 cellVisited[i][j] = new Cell(i, j);
@@ -30,9 +37,11 @@ public class Main {
 
         searchForGoal(arrMaze, cellVisited);
 
-
     }
 
+    /*
+        Gets the size and the maze's layout from the inputted file
+     */
     public static List<Object> readFile() {
 
         List<Object> objectList = new ArrayList<>();
@@ -47,11 +56,13 @@ public class Main {
             String line;
             while ((line = br.readLine()) != null) {
 
+                // input: size
                 if (ctr == -1) {
                     //parse int
                     size = Integer.parseInt(line);
                     arrMaze = new char[size][size];
 
+                // input: maze
                 } else {
                     arrMaze[ctr] = line.toCharArray();
                 }
@@ -69,6 +80,9 @@ public class Main {
         return objectList;
     }
 
+    /*
+        Finds the position of either the start or the goal, depending on the passed parameter for id
+     */
     public static int[] findStartOrGoal(char id, char[][] arrMaze) {
 
         int[] pos = new int[2];
@@ -88,6 +102,9 @@ public class Main {
         return pos;
     }
 
+    /*
+        Searches for the optimal path if possible using A* Search
+     */
     public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) throws InterruptedException, IOException {
         int[] start;
         int[] goal;
@@ -98,6 +115,7 @@ public class Main {
         Cell goalCell = null;
         char[][] displayMaze = new char[arrMaze.length][arrMaze.length];
 
+        // displays the maze
         for (int i = 0; i < arrMaze.length; i++) {
             for (int j = 0; j < arrMaze.length; j++) {
                 if(arrMaze[i][j] == '.') {
@@ -137,7 +155,7 @@ public class Main {
         System.out.println(goal[0] + " " + goal[1]);
         System.out.println("======================");
 
-        //make priority queue
+        // make priority queue as frontier
         PriorityQueue<Cell> frontierPQ = new PriorityQueue<>(Comparator.comparing(Cell::getHeurActCost).thenComparing(Cell::getActualCost));
 
         Scanner scanner = new Scanner(System.in);
@@ -154,18 +172,18 @@ public class Main {
             //set current cell to th
             currCell = frontierPQ.peek();
 
-            // remove s with smallest priority p
+            // remove s with the smallest priority p
             // from the frontier
             // and set to true
             frontierPQ.poll().setExplored(true);
             numOfExploredStates++;
 
-
+            // current cell is not yet the goal
             if (displayMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
                 displayMaze[currCell.getPosX()][currCell.getPosY()] = '.';
             }
 
-            //let c be the total cost up to s
+            // get the cost to reach the current cell from the start
             cost = currCell.getActualCost();
 
             //if it is end then return solution
@@ -174,31 +192,30 @@ public class Main {
                 break;
             } else if (arrMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
                 //for each action in Action(s)
-                //check up, down, left, right, if valid
+                //check up, down, left, right, if it's still within the maze
                 //and if no wall
 
                 //check up
                 if ((currCell.getPosX() - 1 <= arrMaze.length - 1 && currCell.getPosX() - 1 >= 0) &&
                         (arrMaze[currCell.getPosX() - 1][currCell.getPosY()] != '#')) {
 
-                    //get s'
+                    //get s' or the next cell
                     nextCell = cellVisited[currCell.getPosX() - 1][currCell.getPosY()];
 
                     // If s' already explored then continue
-                    //else
-
-
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
+                        // if nextCell is already in the priority queue
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-
+                            // if so, update the value
                             if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
+                        // else, add nextCell to priority queue and take note the previous cell
                         } else {
                             nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
@@ -208,32 +225,31 @@ public class Main {
 
                     }
 
-
                 }
 
                 //check down
                 if ((currCell.getPosX() + 1 <= arrMaze.length - 1 && currCell.getPosX() + 1 >= 0) &&
                         (arrMaze[currCell.getPosX() + 1][currCell.getPosY()] != '#')) {
 
-                    //get s'
+                    // get s' or the next cell
                     nextCell = cellVisited[currCell.getPosX() + 1][currCell.getPosY()];
 
                     // If s' already explored then continue
-                    //else
-
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         System.out.println(heurActCost);
 
+                        // if nextCell is already in the priority queue
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-
+                            // if so, update the value
                             if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
+                        // else, add nextCell to priority queue and take note the previous cell
                         } else {
                             nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
@@ -250,23 +266,25 @@ public class Main {
                 if ((currCell.getPosY() - 1 <= arrMaze.length - 1 && currCell.getPosY() - 1 >= 0) &&
                         (arrMaze[currCell.getPosX()][currCell.getPosY() - 1] != '#')) {
 
-                    //get s'
+                    //get s' or the next cell
                     nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() - 1];
 
                     // If s' already explored then continue
-                    //else
-
                     if (!nextCell.getExplored()) {
+                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
-                        //Update frontier with s' and priority c + Cost(s,a) + h(s')
+                        System.out.println(heurActCost);
+
+                        // if nextCell is already in the priority queue
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-
+                            // if so, update the value
                             if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
+                        // else, add nextCell to priority queue and take note the previous cell
                         } else {
                             nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
@@ -286,19 +304,19 @@ public class Main {
                     nextCell = cellVisited[currCell.getPosX()][currCell.getPosY() + 1];
 
                     // If s' already explored then continue
-                    //else
-
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
                         double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
+                        // if nextCell is already in the priority queue
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
-
+                            // if so, update the value
                             if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
                                 nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
+                        // else, add nextCell to priority queue and take note the previous cell
                         } else {
                             nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
@@ -312,7 +330,7 @@ public class Main {
                 }
 
             }
-
+            // display graphics
             System.out.println(displayMaze(currCell, start, goal, displayMaze));
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -326,12 +344,15 @@ public class Main {
             System.out.println("Solution found!");
             System.out.println(goalCell.getPosX() + " " + goalCell.getPosY() + "\n");
 
+            // from goal cell using previous cells, backtrack to find the optimal path
             while (goalCell.getPreviousCell() != null) {
                 displayMaze[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()] = 'x';
                 goalCell = cellVisited[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()];
             }
 
             System.out.println(displayMaze(goalCell, start, goal, displayMaze));
+
+        // no path to the goal exists
         } else {
             System.out.println("Solution not found.");
         }
@@ -345,12 +366,17 @@ public class Main {
         System.out.println(ANSI_GREEN + "E" + ANSI_RESET + " - End");
 
     }
-
+    /*
+        Compute for the heuristic of the cell
+     */
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {
         //manhattan distance
         return Math.abs(xPos - xGoal) + Math.abs(yPos - yGoal);
     }
 
+    /*
+        Display for the maze
+     */
     public static StringBuilder displayMaze(Cell cell, int[] start, int[] goal, char[][] arrMaze) {
 
         StringBuilder maze = new StringBuilder("   ");

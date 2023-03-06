@@ -1,3 +1,7 @@
+/*
+    This class gives the ability for each tile of the maze to store if it's explored, the cost, heuristic,
+    position, and the previous cell that was explored before going in to the current cell.
+ */
 public class Cell {
 
     private boolean isExplored = false;
@@ -9,6 +13,8 @@ public class Cell {
     private Cell previousCell;
 
 
+    // Initial values
+    // cost and heuristic have infinity values at first
     Cell(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
@@ -20,6 +26,10 @@ public class Cell {
         this.actualCost = actualCost;
         this.heuristicAndActualCost = heuristicAndActualCost;
     }
+
+    /*
+        Getters and setters
+     */
 
     public double getHeurActCost() {
         return heuristicAndActualCost;
