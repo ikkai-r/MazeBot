@@ -11,7 +11,7 @@ public class Main {
     public static final String ANSI_WHITE_BG = "\u001B[47,";
     public static final String ANSI_RESET = "\u001B[0m";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         List<Object> fileOut = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -89,7 +89,7 @@ public class Main {
         return pos;
     }
 
-    public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) {
+    public static void searchForGoal(char[][] arrMaze, Cell[][] cellVisited) throws InterruptedException, IOException {
         int[] start;
         int[] goal;
         int numOfExploredStates = 0;
@@ -141,6 +141,9 @@ public class Main {
         //make priority queue
         PriorityQueue<Cell> frontierPQ = new PriorityQueue<>(Comparator.comparing(Cell::getHeurActCost).thenComparing(Cell::getActualCost));
 
+        Scanner scanner = new Scanner(System.in);
+        String choice = null;
+
         //add start priority to the queue
         cellVisited[start[0]][start[1]].setActualCost(0);
         cellVisited[start[0]][start[1]].setHeurActCost(cellVisited[start[0]][start[1]].getActualCost() + heuristicFunc(start[1], goal[1], start[0], goal[0]));
@@ -159,7 +162,7 @@ public class Main {
             numOfExploredStates++;
 
 
-            if(displayMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
+            if (displayMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
                 displayMaze[currCell.getPosX()][currCell.getPosY()] = '.';
             }
 
@@ -170,7 +173,7 @@ public class Main {
             if (arrMaze[currCell.getPosX()][currCell.getPosY()] == 'G') {
                 goalCell = currCell;
                 break;
-            } else if(arrMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
+            } else if (arrMaze[currCell.getPosX()][currCell.getPosY()] != 'G') {
                 //for each action in Action(s)
                 //check up, down, left, right, if valid
                 //and if no wall
@@ -188,19 +191,17 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
-
-                        System.out.println(heurActCost);
+                        double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
 
-                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
-                                nextCell.setActualCost(cost+1);
+                            if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
-                            nextCell.setActualCost(cost+1);
+                            nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
@@ -230,12 +231,12 @@ public class Main {
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
 
-                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
-                                nextCell.setActualCost(cost+1);
+                            if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
-                            nextCell.setActualCost(cost+1);
+                            nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
@@ -257,7 +258,7 @@ public class Main {
                     //else
 
                     if (!nextCell.getExplored()) {
-                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         System.out.println(heurActCost);
 
@@ -265,12 +266,12 @@ public class Main {
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
 
-                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
-                                nextCell.setActualCost(cost+1);
+                            if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
-                            nextCell.setActualCost(cost+1);
+                            nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
@@ -292,17 +293,17 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         if (frontierPQ.contains(nextCell)) {
                             //check if next cell has a lower heuristic cost/cost now than the prev
 
-                            if (nextCell.getActualCost() > cost+1 || nextCell.getHeurActCost() > heurActCost) {
-                                nextCell.setActualCost(cost+1);
+                            if (nextCell.getActualCost() > cost + 1 || nextCell.getHeurActCost() > heurActCost) {
+                                nextCell.setActualCost(cost + 1);
                                 nextCell.setHeurActCost(heurActCost);
                             }
                         } else {
-                            nextCell.setActualCost(cost+1);
+                            nextCell.setActualCost(cost + 1);
                             nextCell.setHeurActCost(heurActCost);
                             frontierPQ.add(nextCell);
                             nextCell.setPrev(currCell);
@@ -316,24 +317,24 @@ public class Main {
             }
 
             System.out.println(displayMaze(currCell, start, goal, displayMaze));
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            Thread.sleep(1500);
+            //System.out.println("Enter any key to continue.");
+            //choice = scanner.nextLine();
         }
 
         //printing the most optimal path in x
         if (goalCell != null) {
             System.out.println("Solution found!");
-            System.out.println(goalCell.getPosX() + " " + goalCell.getPosY());
+            System.out.println(goalCell.getPosX() + " " + goalCell.getPosY() + "\n");
 
             while (goalCell.getPreviousCell() != null) {
                 displayMaze[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()] = 'x';
                 goalCell = cellVisited[goalCell.getPreviousCell().getPosX()][goalCell.getPreviousCell().getPosY()];
             }
 
-            for (int i = 0; i < arrMaze.length; i++) {
-                for (int j = 0; j < arrMaze.length; j++) {
-                    System.out.println(displayMaze(goalCell, start, goal, displayMaze));
-                }
-                System.out.println();
-            }
+            System.out.println(displayMaze(goalCell, start, goal, displayMaze));
         } else {
             System.out.println("Solution not found.");
         }
@@ -341,8 +342,10 @@ public class Main {
         System.out.println("Number of explored states: " + numOfExploredStates);
 
         System.out.println("Legends: ");
-        System.out.println(ANSI_YELLOW + "." + ANSI_RESET + " - visited locations");
-        System.out.println(ANSI_GREEN + "x" + ANSI_RESET + " - final path");
+        System.out.println(ANSI_RED + "o" + ANSI_RESET + " - Bot");
+        System.out.println(ANSI_YELLOW + "." + ANSI_RESET + " - Visited Locations");
+        System.out.println(ANSI_GREEN + "x" + ANSI_RESET + " - Final Path");
+        System.out.println(ANSI_GREEN + "E" + ANSI_RESET + " - End");
 
     }
 
