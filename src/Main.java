@@ -4,6 +4,13 @@ import java.io.*;
 //isang file muna lahat kasi di nagana github sa comlabs
 
 public class Main {
+
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_WHITE_BG = "\u001B[47,";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     public static void main(String[] args) {
 
         List<Object> fileOut = new ArrayList<>();
@@ -64,6 +71,7 @@ public class Main {
     }
 
     public static int[] findStartOrGoal(char id, char[][] arrMaze) {
+
         int[] pos = new int[2];
 
         for (int i = 0; i < arrMaze.length; i++) {
@@ -180,7 +188,7 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost =  cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         System.out.println(heurActCost);
 
@@ -215,7 +223,7 @@ public class Main {
 
                     if (!nextCell.getExplored()) {
                         //Update frontier with s' and priority c + Cost(s,a) + h(s')
-                        double heurActCost =  cost+1+heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
+                        double heurActCost = cost + 1 + heuristicFunc(nextCell.getPosY(), goal[1], nextCell.getPosX(), goal[0]);
 
                         System.out.println(heurActCost);
 
@@ -307,15 +315,7 @@ public class Main {
 
             }
 
-            for (int i = 0; i < arrMaze.length; i++) {
-                for (int j = 0; j < arrMaze.length; j++) {
-                    System.out.print(displayMaze[i][j]);
-                }
-                System.out.println();
-            }
-
-            System.out.println("======");
-
+            System.out.println(displayMaze(currCell, start, goal, displayMaze));
         }
 
         //printing the most optimal path in x
@@ -330,7 +330,7 @@ public class Main {
 
             for (int i = 0; i < arrMaze.length; i++) {
                 for (int j = 0; j < arrMaze.length; j++) {
-                    System.out.print(displayMaze[i][j]);
+                    System.out.println(displayMaze(goalCell, start, goal, displayMaze));
                 }
                 System.out.println();
             }
@@ -341,14 +341,230 @@ public class Main {
         System.out.println("Number of explored states: " + numOfExploredStates);
 
         System.out.println("Legends: ");
-        System.out.println(". - visited locations");
-        System.out.println("x - final path");
+        System.out.println(ANSI_YELLOW + "." + ANSI_RESET + " - visited locations");
+        System.out.println(ANSI_GREEN + "x" + ANSI_RESET + " - final path");
 
     }
 
     public static int heuristicFunc(int xPos, int xGoal, int yPos, int yGoal) {
         //manhattan distance
-        return Math.abs(xPos - xGoal)+Math.abs(yPos-yGoal);
+        return Math.abs(xPos - xGoal) + Math.abs(yPos - yGoal);
     }
 
+    public static StringBuilder displayMaze(Cell cell, int[] start, int[] goal, char[][] arrMaze) {
+
+        StringBuilder maze = new StringBuilder("   ");
+        StringBuilder mazeUnder = new StringBuilder();
+
+        for (int i = 0; i < arrMaze.length; i++) {
+
+            if (i < 10) {
+                maze.append("  ").append(i).append(" ");
+            } else {
+                maze.append("  ").append(i);
+            }
+        }
+        maze.append("\n   ╔");
+
+        for (int i = 1; i < arrMaze.length; i++) {
+
+            char temp = arrMaze[0][i - 1];
+            char tempNextCol = arrMaze[0][i];
+
+            if (temp == '#') {
+                maze.append("═══╤");
+            } else {
+                if (tempNextCol == '#') {
+
+                    maze.append("═══╤");
+                } else {
+
+                    maze.append("════");
+                }
+            }
+        }
+        maze.append("═══╗\n");
+
+        char tempPos = '0';
+        char tempEast = '0';
+        char tempSouth = '0';
+        char tempLowerRight = '0';
+
+        for (int row = 0; row < arrMaze.length; row++) {
+
+            mazeUnder = new StringBuilder();
+
+            for (int col = 0; col < arrMaze.length; col++) {
+
+                tempPos = arrMaze[row][col]; // = A -> Current square
+
+                if (col + 1 == arrMaze.length){// = B -> Square at the right of temp
+                    tempEast = 0;
+                } else {
+                    tempEast = arrMaze[row][col + 1];
+                }
+
+                if (row + 1 == arrMaze.length){// = C -> Square below temp
+
+                    tempSouth = 0;
+                } else {
+
+                    tempSouth = arrMaze[row + 1][col];
+                }
+
+                if (row < arrMaze.length - 1 && col < arrMaze.length - 1) {
+
+                    tempLowerRight = arrMaze[row + 1][col + 1]; // = D -> Square in the temp lower right-hand diagonal
+                }
+
+                if (col == 0) {
+
+                    if (row < 10) {
+
+                        maze.append(row).append("  ║");
+                    } else {
+
+                        maze.append(row).append(" ║");
+                    }
+
+                    if (tempSouth != 0) {
+
+                        if (tempPos == '#' || tempSouth == '#') {
+
+                            mazeUnder.append("   ╟");
+                        } else {
+                            mazeUnder.append("   ║");
+                        }
+                    }
+                }
+
+                if (tempPos == '#') {
+
+                    maze.append("   ");
+                    mazeUnder.append("───");
+                } else {
+
+                    if (row == cell.getPosX() && col == cell.getPosY()){
+
+                        maze.append(" ").append(ANSI_RED).append("o").append(ANSI_RESET).append(" ");
+                    }
+                    else if (row == start[0] && col == start[1]){
+
+                        maze.append(" ").append(ANSI_GREEN).append("S").append(ANSI_RESET).append(" ");
+                    }
+                    else if (row == goal[0] && col == goal[1]){
+
+                        maze.append(" ").append(ANSI_GREEN).append("E").append(ANSI_RESET).append(" ");
+                    } else if (arrMaze[row][col] == 'x'){
+
+                        maze.append(" ").append(ANSI_GREEN).append(arrMaze[row][col]).append(ANSI_RESET).append(" ");
+                    } else {
+
+                        maze.append(" ").append(ANSI_YELLOW).append(arrMaze[row][col]).append(ANSI_RESET).append(" ");
+                    }
+
+                
+                    if (row < arrMaze.length - 1) {
+                        if (tempSouth == '#'){
+
+                            mazeUnder.append("───");
+                        } else {
+
+                            mazeUnder.append("   ");
+                        }
+                    }
+                }
+
+                //Maze right edge
+                if (col == arrMaze.length - 1) {
+                    
+                    maze.append("║");
+                    
+                    if (tempPos != 0 && tempSouth != 0) {
+                        
+                        if (tempPos == '#' || tempSouth == '#'){
+
+                            mazeUnder.append("╢");
+                        } else {
+
+                            mazeUnder.append("║");
+                        }
+                    }
+                } else {
+                    //Squares corners.
+                    // two cases : wall square or not
+                    if (tempPos == '#') {
+
+                        maze.append("│");
+                        if (tempSouth != 0 && tempLowerRight != 0 && tempEast != 0) {
+                            //"┼" = (B + D).(C + D) -> The most reccurent corner to write
+                            if ((tempEast == '#' || tempLowerRight == '#') && (tempSouth == '#' || tempLowerRight == '#')){
+
+                                mazeUnder.append("┼");
+                            } else {
+
+                                if (tempSouth != '#' && tempEast != '#') //Wall on top left only
+
+                                    mazeUnder.append("┘");
+                                else if (tempSouth != '#') // Walls on top
+
+                                    mazeUnder.append("┴");
+                                else
+
+                                    mazeUnder.append("┤");
+                            }
+                        }
+                    } else {
+                        if (tempEast != 0) {
+                            if (tempEast == '#')
+                                maze.append("│");
+                            else
+                                maze.append(" ");
+
+                            if (tempSouth != 0 && tempLowerRight != 0) {
+                                //"┼" = (C).(D) -> The most reccurent corner to write
+                                if (tempSouth == '#' && tempEast == '#')
+                                    mazeUnder.append("┼");
+                                else {
+                                    if (tempSouth != '#' && tempLowerRight != '#' && tempEast != '#') //No wall
+
+                                        mazeUnder.append(" ");
+                                    else if (tempSouth != '#' && tempLowerRight == '#' && tempEast != '#') //Wall on right below
+
+                                        mazeUnder.append("┌");
+                                    else if (tempSouth == '#' && tempLowerRight != '#') //Wall on left below
+
+                                        mazeUnder.append("┐");
+                                    else if (tempSouth != '#' && tempLowerRight != '#') //Wall on top right
+
+                                        mazeUnder.append("└");
+                                    else if (tempSouth != '#') //Walls on right
+
+                                        mazeUnder.append("├");
+                                    else
+
+                                        mazeUnder.append("┬");
+                                }
+                            }
+                        }
+                    }
+                }
+            }//<- for each column
+            if (row < arrMaze.length - 1)
+                maze.append("\n").append(mazeUnder).append("\n"); //Concatenate res + mazeUnder
+            else {
+                //Maze bottom edge
+                maze.append("\n   ╚");
+                for (int i = 1; i < arrMaze.length; i++) {
+                    tempPos = arrMaze[row][i - 1];
+                    if (tempEast == '#' || tempPos == '#')
+                        maze.append("═══╧");
+                    else
+                        maze.append("════");
+                }
+                maze.append("═══╝\n");
+            }
+        }
+        return maze;
+    }
 }
